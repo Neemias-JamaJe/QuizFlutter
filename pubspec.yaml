@@ -62,6 +62,17 @@ flutter:
     - assets/images/jon.jpg
     - assets/images/bronx.jpg
     - assets/images/pe.jpg
+    - assets/images/guaribar.jpg
+    - assets/images/interroga1.jpg
+    - assets/images/interroga2.jpg
+    - assets/images/interroga3.jpg
+    - assets/images/interroga4.jpg
+    - assets/images/interroga5.jpg
+    - assets/images/interroga6.jpg
+    - assets/images/interroga7.jpg
+    - assets/images/interroga8.png
+    - assets/images/interroga9.jpg
+    - assets/images/interroga10.jpg
   
 
   # To add assets to your application, add an assets section, like this:

@@ -11,13 +11,13 @@ class QuizApp extends StatelessWidget {
     return MaterialApp(
       title: 'Quiz Brainrot',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: QuizStartScreen(), // Tela inicial
+      home: QuizStartScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-// Tela de Início
+// Tela de Início com imagem
 class QuizStartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +29,12 @@ class QuizStartScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Imagem no menu
+              Image.asset(
+                'assets/images/guaribar.jpg', // Substitua pelo nome da sua imagem
+                height: 200,
+              ),
+              SizedBox(height: 30),
               Text(
                 'Bem-vindo ao Quiz de Nemo',
                 textAlign: TextAlign.center,
@@ -48,15 +54,12 @@ class QuizStartScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            QuizHome()), // Vai para a tela do quiz
+                    MaterialPageRoute(builder: (context) => QuizHome()),
                   );
                 },
                 child: Text('Iniciar Quiz'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors
-                      .blue[600], // Usando backgroundColor em vez de primary
+                  backgroundColor: Colors.blue[600],
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                   textStyle: TextStyle(fontSize: 18),
                 ),
@@ -69,7 +72,6 @@ class QuizStartScreen extends StatelessWidget {
   }
 }
 
-// Tela do Quiz
 class QuizHome extends StatefulWidget {
   @override
   _QuizHomeState createState() => _QuizHomeState();
@@ -77,38 +79,51 @@ class QuizHome extends StatefulWidget {
 
 class _QuizHomeState extends State<QuizHome> {
   final List<Question> questions = [
-    Question(
-        "Qual desses é melhor?",
-        [
-          "Tung tung Tung Sahur",
-          "Tralalero Trallalà",
-          "capuccino Asesino",
-          "Bombardiro Crocodiro"
-        ],
-        0),
+    Question("Qual desses é melhor?",
+        ["Tung tung Tung Sahur", "Tralalero Trallalà", "capuccino Asesino", "Bombardiro Crocodiro"],
+        0,
+        'assets/images/interroga1.jpg'),
     Question("Qual carro eu prefiro??",
-        ["Mustang", "Lancer Evo", "Audi R8", "Camaro"], 2),
-    Question("HAHAHA?", ["Nilda", "Paty", "Robelia", "Thamis"], 1),
+        ["Mustang", "Lancer Evo", "Audi R8", "Camaro"],
+        2,
+        'assets/images/interroga2.jpg'),
+    Question("HAHAHA?",
+        ["Nilda", "Paty", "Robelia", "Thamis"],
+        1,
+        'assets/images/interroga3.jpg'),
     Question("Qual cidade eu NÃO visitaria?",
-        ["Roma", "Paris", "Londres", "Berlim"], 1),
-    Question(
-        "Qual ideologia eu apoio?",
+        ["Roma", "Paris", "Londres", "Berlim"],
+        1,
+        'assets/images/interroga4.jpg'),
+    Question("Qual ideologia eu apoio?",
         ["Comunista", "Monarquista", "Conservador", "Nenhuma das Alternativas"],
-        3),
+        3,
+        'assets/images/interroga5.jpg'),
     Question("Qual destes estilos musicais eu menos gosto?",
-        ["Funk", "MPB", "Rock", "Rap"], 0),
+        ["Funk", "MPB", "Rock", "Rap"],
+        0,
+        'assets/images/interroga6.jpg'),
     Question("Onde a chave está?",
-        ["Na minha casa", "No carro", "No meu chaveiro", "No meu bolso"], 3),
-    Question("Waifu?", ["Nami", "Mikoto Urabe", "Rem", "Asia Argento"], 1),
+        ["Na minha casa", "No carro", "No meu chaveiro", "No meu bolso"],
+        3,
+        'assets/images/interroga7.jpg'),
+    Question("Waifu?",
+        ["Nami", "Mikoto Urabe", "Rem", "Asia Argento"],
+        1,
+        'assets/images/interroga8.png'),
     Question("Qual comida eu prefiro?",
-        ["Quiabada", "Caruru com Arroz", "Salada de Fruta", "Mocofato"], 3),
+        ["Quiabada", "Caruru com Arroz", "Salada de Fruta", "Mocofato"],
+        3,
+        'assets/images/interroga9.jpg'),
     Question("Qual meu JoJo Favorito?",
-        ["Jonathan", "Joseph", "Jotaro", "Josuke"], 1),
+        ["Jonathan", "Joseph", "Jotaro", "Josuke"],
+        1,
+        'assets/images/interroga10.jpg'),
   ];
 
   int currentQuestion = 0;
   int score = 0;
-  int timeLeft = 15;
+  int timeLeft = 30;
   Timer? timer;
   bool quizFinished = false;
 
@@ -148,41 +163,20 @@ class _QuizHomeState extends State<QuizHome> {
     nextQuestion();
   }
 
-  void restartQuiz() {
-    setState(() {
-      currentQuestion = 0;
-      score = 0;
-      quizFinished = false;
-    });
-    startTimer();
-  }
-
   String getResultImageUrl() {
-    if (score == 0) {
-      return 'assets/images/makh.jpg';
-    } else if (score <= 3) {
-      return 'assets/images/poatan.jpg';
-    } else if (score <= 6) {
-      return 'assets/images/jon.jpg';
-    } else if (score <= 9) {
-      return 'assets/images/bronx.jpg';
-    } else {
-      return 'assets/images/pe.jpg';
-    }
+    if (score == 0) return 'assets/images/makh.jpg';
+    if (score <= 3) return 'assets/images/poatan.jpg';
+    if (score <= 6) return 'assets/images/jon.jpg';
+    if (score <= 9) return 'assets/images/bronx.jpg';
+    return 'assets/images/pe.jpg';
   }
 
   String getResultMessage() {
-    if (score <= 2) {
-      return "Sai daí Gobila";
-    } else if (score <= 4) {
-      return "KKKKKKKKKK ruim demais";
-    } else if (score <= 7) {
-      return "Óia até q me conhece um pouco";
-    } else if (score <= 9) {
-      return "Eu lendo eu n acredito";
-    } else {
-      return "Obrigado amigo, você é um amigo";
-    }
+    if (score <= 2) return "Sai daí Gobila";
+    if (score <= 4) return "KKKKKKKKKK ruim demais";
+    if (score <= 7) return "Óia até q me conhece um pouco";
+    if (score <= 9) return "Eu lendo eu n acredito";
+    return "Obrigado amigo, você é um amigo";
   }
 
   @override
@@ -208,10 +202,7 @@ class _QuizHomeState extends State<QuizHome> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.network(
-                      getResultImageUrl(),
-                      height: 200,
-                    ),
+                    Image.asset(getResultImageUrl(), height: 200),
                     SizedBox(height: 20),
                     Text(
                       'Pontuação: $score / ${questions.length}',
@@ -228,9 +219,7 @@ class _QuizHomeState extends State<QuizHome> {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  QuizStartScreen()), // Volta para a tela inicial
+                          MaterialPageRoute(builder: (context) => QuizStartScreen()),
                         );
                       },
                       child: Text("Voltar para o Início"),
@@ -241,39 +230,46 @@ class _QuizHomeState extends State<QuizHome> {
             )
           : Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Tempo restante: $timeLeft s',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Pergunta ${currentQuestion + 1}/${questions.length}',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    questions[currentQuestion].question,
-                    style: TextStyle(color: Colors.white, fontSize: 22),
-                  ),
-                  SizedBox(height: 20),
-                  ...questions[currentQuestion].options.asMap().entries.map(
-                    (entry) {
-                      final index = entry.key;
-                      final text = entry.value;
-                      return Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () => answerQuestion(index),
-                          child: Text(text),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Tempo restante: $timeLeft s',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Pergunta ${currentQuestion + 1}/${questions.length}',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    SizedBox(height: 20),
+                    Image.asset(
+                      questions[currentQuestion].imagePath,
+                      height: 200,
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      questions[currentQuestion].question,
+                      style: TextStyle(color: Colors.white, fontSize: 22),
+                    ),
+                    SizedBox(height: 20),
+                    ...questions[currentQuestion].options.asMap().entries.map(
+                      (entry) {
+                        final index = entry.key;
+                        final text = entry.value;
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () => answerQuestion(index),
+                            child: Text(text),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
     );
@@ -284,6 +280,7 @@ class Question {
   final String question;
   final List<String> options;
   final int correctIndex;
+  final String imagePath;
 
-  Question(this.question, this.options, this.correctIndex);
+  Question(this.question, this.options, this.correctIndex, this.imagePath);
 }
